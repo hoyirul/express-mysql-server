@@ -1,14 +1,37 @@
 const exampleModel = require('../models/example.model');
 
 const index = async (req, res) => {
-    const [data] = await exampleModel.getAll();
+    try{
+        const [response] = await exampleModel.getAll();
+        res.json({
+            message: "success",
+            data: response
+        });
+    }catch(error){
+        res.status(500).json({
+            message: "errors",
+            data: error
+        })
+    }
+}
 
-    res.json({
-        message: "success",
-        data: data
-    })
+const store = async (req, res) => {
+    const {body} = req;
+
+    try{
+        await exampleModel.insertData(body);
+        res.status(201).json({
+            message: "success",
+            data: body
+        });
+    }catch(error){
+        res.status(500).json({
+            message: "errors",
+            data: error
+        })
+    }
 }
 
 module.exports = {
-    index, 
+    index, store
 }
