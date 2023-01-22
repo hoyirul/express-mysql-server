@@ -4,7 +4,12 @@ const moment = require('moment');
 let datetime = moment().format('yyyy-MM-DD H:m:s');
 
 const all = () => {
-    const SQLQuery = "SELECT * FROM users";
+    const SQLQuery = `SELECT * FROM users`;
+    return db.execute(SQLQuery);
+}
+
+const find = (id) => {
+    const SQLQuery = `SELECT * FROM users WHERE id=${id}`;
     return db.execute(SQLQuery);
 }
 
@@ -27,5 +32,5 @@ const destroy = (id) => {
 }
 
 module.exports = {
-    all, create, update, destroy
+    all, find, create, update, destroy
 }

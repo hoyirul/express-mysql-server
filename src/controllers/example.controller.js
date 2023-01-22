@@ -11,7 +11,7 @@ const index = async (req, res) => {
         res.status(500).json({
             message: "errors",
             data: error
-        })
+        });
     }
 }
 
@@ -28,12 +28,28 @@ const store = async (req, res) => {
         res.status(500).json({
             message: "errors",
             data: error
-        })
+        });
+    }
+}
+
+const show = async (req, res) => {
+    const {id} = req.params;
+    try{
+        const [response] = await exampleModel.find(id);
+        res.json({
+            message: "success",
+            data: response
+        });
+    }catch(error){
+        res.status(500).json({
+            message: "errors",
+            data: error
+        });
     }
 }
 
 const update = async (req, res) => {
-    const {id} = req.params
+    const {id} = req.params;
     const {body} = req;
 
     try{
@@ -46,7 +62,7 @@ const update = async (req, res) => {
         res.status(500).json({
             message: "errors",
             data: error
-        })
+        });
     }
 }
 
@@ -62,10 +78,10 @@ const destroy = async (req, res) => {
         res.status(500).json({
             message: "errors",
             data: error
-        })
+        });
     }
 }
 
 module.exports = {
-    index, store, update, destroy
+    index, store, show, update, destroy
 }

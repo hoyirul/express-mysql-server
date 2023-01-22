@@ -4,6 +4,7 @@ const router = require('express').Router();
 
 // route users
 router.get('/users', exampleController.index);
+router.get('/users/:id', exampleController.show);
 router.post('/users', exampleController.store);
 router.put('/users/:id', exampleController.update);
 router.delete('/users/:id', exampleController.destroy);
