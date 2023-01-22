@@ -2,7 +2,7 @@ const exampleModel = require('../models/example.model');
 
 const index = async (req, res) => {
     try{
-        const [response] = await exampleModel.getAll();
+        const [response] = await exampleModel.all();
         res.json({
             message: "success",
             data: response
@@ -19,7 +19,7 @@ const store = async (req, res) => {
     const {body} = req;
 
     try{
-        await exampleModel.insertData(body);
+        await exampleModel.create(body);
         res.status(201).json({
             message: "success",
             data: body
@@ -32,6 +32,40 @@ const store = async (req, res) => {
     }
 }
 
+const update = async (req, res) => {
+    const {id} = req.params
+    const {body} = req;
+
+    try{
+        await exampleModel.update(body, id);
+        res.status(200).json({
+            message: "success",
+            data: body
+        });
+    }catch(error){
+        res.status(500).json({
+            message: "errors",
+            data: error
+        })
+    }
+}
+
+const destroy = async (req, res) => {
+    const {id} = req.params;
+
+    try{
+        await exampleModel.destroy(id);
+        res.status(200).json({
+            message: "success deleted!",
+        });
+    }catch(error){
+        res.status(500).json({
+            message: "errors",
+            data: error
+        })
+    }
+}
+
 module.exports = {
-    index, store
+    index, store, update, destroy
 }
